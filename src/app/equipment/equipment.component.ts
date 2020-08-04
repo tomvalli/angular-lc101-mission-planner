@@ -21,11 +21,29 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
+   atCapacity: boolean = false;
 
    constructor() { }
 
    ngOnInit() { }
 
    // Code your addItem function here:
-   
+   addItem(equipment): boolean {
+    this.cargoHold.push(equipment);
+    this.cargoMass += equipment.mass;
+
+    if (this.maximumAllowedMass - this.cargoMass <= 200) {
+      this.atCapacity = true;
+      return true;
+    }
+    this.atCapacity = false;
+    return false;
+   }
+
+   empty() {
+     this.cargoHold = [];
+     this.cargoMass = 0;
+     this.atCapacity = false;
+   }
+
 }
